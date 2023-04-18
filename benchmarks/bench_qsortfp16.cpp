@@ -67,7 +67,7 @@ static void avx512_qselect(benchmark::State& state) {
     if (cpu_has_avx512fp16()) {
         // Perform setup here
         int64_t K = state.range(0);
-        size_t ARRSIZE = 10000;
+        size_t ARRSIZE = state.range(1);
         std::vector<T> arr;
         std::vector<T> arr_bkp;
 
@@ -97,7 +97,7 @@ static void stdnthelement(benchmark::State& state) {
     if (cpu_has_avx512fp16()) {
         // Perform setup here
         int64_t K = state.range(0);
-        size_t ARRSIZE = 10000;
+        size_t ARRSIZE = state.range(1);
         std::vector<T> arr;
         std::vector<T> arr_bkp;
 
@@ -123,15 +123,15 @@ static void stdnthelement(benchmark::State& state) {
 }
 
 // Register the function as a benchmark
-BENCHMARK(avx512_qselect<_Float16>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdnthelement<_Float16>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
+BENCHMARK(avx512_qselect<_Float16>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdnthelement<_Float16>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
 
 template <typename T>
 static void avx512_partial_qsort(benchmark::State& state) {
     if (cpu_has_avx512fp16()) {
         // Perform setup here
         int64_t K = state.range(0);
-        size_t ARRSIZE = 10000;
+        size_t ARRSIZE = state.range(1);
         std::vector<T> arr;
         std::vector<T> arr_bkp;
 
@@ -161,7 +161,7 @@ static void stdpartialsort(benchmark::State& state) {
     if (cpu_has_avx512fp16()) {
         // Perform setup here
         int64_t K = state.range(0);
-        size_t ARRSIZE = 10000;
+        size_t ARRSIZE = state.range(1);
         std::vector<T> arr;
         std::vector<T> arr_bkp;
 
@@ -187,5 +187,5 @@ static void stdpartialsort(benchmark::State& state) {
 }
 
 // Register the function as a benchmark
-BENCHMARK(avx512_partial_qsort<_Float16>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdpartialsort<_Float16>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
+BENCHMARK(avx512_partial_qsort<_Float16>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdpartialsort<_Float16>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});

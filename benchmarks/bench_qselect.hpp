@@ -10,7 +10,7 @@ static void avx512_qselect(benchmark::State& state) {
     }
     // Perform setup here
     int64_t K = state.range(0);
-    size_t ARRSIZE = 10000;
+    size_t ARRSIZE = state.range(1);
     std::vector<T> arr;
     std::vector<T> arr_bkp;
 
@@ -32,7 +32,7 @@ template <typename T>
 static void stdnthelement(benchmark::State& state) {
     // Perform setup here
     int64_t K = state.range(0);
-    size_t ARRSIZE = 10000;
+    size_t ARRSIZE = state.range(1);
     std::vector<T> arr;
     std::vector<T> arr_bkp;
 
@@ -51,22 +51,22 @@ static void stdnthelement(benchmark::State& state) {
 }
 
 // Register the function as a benchmark
-BENCHMARK(avx512_qselect<float>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdnthelement<float>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_qselect<uint32_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdnthelement<uint32_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_qselect<int32_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdnthelement<int32_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
+BENCHMARK(avx512_qselect<float>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdnthelement<float>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_qselect<uint32_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdnthelement<uint32_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_qselect<int32_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdnthelement<int32_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
 
-BENCHMARK(avx512_qselect<double>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdnthelement<double>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_qselect<uint64_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdnthelement<uint64_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_qselect<int64_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdnthelement<int64_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
+BENCHMARK(avx512_qselect<double>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdnthelement<double>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_qselect<uint64_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdnthelement<uint64_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_qselect<int64_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdnthelement<int64_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
 
-//BENCHMARK(avx512_qselect<float16>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_qselect<uint16_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdnthelement<uint16_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_qselect<int16_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdnthelement<int16_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
+//BENCHMARK(avx512_qselect<float16>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_qselect<uint16_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdnthelement<uint16_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_qselect<int16_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdnthelement<int16_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});

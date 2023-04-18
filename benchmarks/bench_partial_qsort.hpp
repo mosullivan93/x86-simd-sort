@@ -10,7 +10,7 @@ static void avx512_partial_qsort(benchmark::State& state) {
     }
     // Perform setup here
     int64_t K = state.range(0);
-    size_t ARRSIZE = 10000;
+    size_t ARRSIZE = state.range(1);
     std::vector<T> arr;
     std::vector<T> arr_bkp;
 
@@ -32,7 +32,7 @@ template <typename T>
 static void stdpartialsort(benchmark::State& state) {
     // Perform setup here
     int64_t K = state.range(0);
-    size_t ARRSIZE = 10000;
+    size_t ARRSIZE = state.range(1);
     std::vector<T> arr;
     std::vector<T> arr_bkp;
 
@@ -51,22 +51,22 @@ static void stdpartialsort(benchmark::State& state) {
 }
 
 // Register the function as a benchmark
-BENCHMARK(avx512_partial_qsort<float>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdpartialsort<float>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_partial_qsort<uint32_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdpartialsort<uint32_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_partial_qsort<int32_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdpartialsort<int32_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
+BENCHMARK(avx512_partial_qsort<float>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdpartialsort<float>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_partial_qsort<uint32_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdpartialsort<uint32_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_partial_qsort<int32_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdpartialsort<int32_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
 
-BENCHMARK(avx512_partial_qsort<double>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdpartialsort<double>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_partial_qsort<uint64_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdpartialsort<uint64_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_partial_qsort<int64_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdpartialsort<int64_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
+BENCHMARK(avx512_partial_qsort<double>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdpartialsort<double>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_partial_qsort<uint64_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdpartialsort<uint64_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_partial_qsort<int64_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdpartialsort<int64_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
 
-//BENCHMARK(avx512_partial_qsort<float16>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_partial_qsort<uint16_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdpartialsort<uint16_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(avx512_partial_qsort<int16_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
-BENCHMARK(stdpartialsort<int16_t>)->Arg(10)->Arg(100)->Arg(1000)->Arg(5000);
+//BENCHMARK(avx512_partial_qsort<float16>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_partial_qsort<uint16_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdpartialsort<uint16_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(avx512_partial_qsort<int16_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
+BENCHMARK(stdpartialsort<int16_t>)->ArgsProduct({{5, 10, 100, 1000, 5000}, {10000, 100000, 250000}});
